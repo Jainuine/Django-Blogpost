@@ -44,17 +44,32 @@
         </div>
         </div>
         {% endif %}
+        {% if user.is_authenticated %}
     </header>
     <div class="container">
     <div class="nav-scroller py-1 mb-2">
       <nav class="nav d-flex justify-content-between">
         <a class="p-2 text-muted" href="http://127.0.0.1:8000/weather">| Weather Detector |</a>
-        <a class="p-2 text-muted" href="http://127.0.0.1:8000/room">| Chat Bot |</a>
+        <a class="p-2 text-muted" href="http://127.0.0.1:8000/General/?username={{user.username}}"> | Chat Bot | </a>
         <a class="p-2 text-muted" href="https://github.com/Jainuine">| Git Hub |</a>
         <a class="p-2 text-muted" href="https://www.linkedin.com/in/architraj/">| Linkedin |</a>
       </nav>
     </div>
     </div>
+      {% else %}
+    </header>
+    <div class="container">
+    <div class="nav-scroller py-1 mb-2">
+      <nav class="nav d-flex justify-content-between">
+        <a class="p-2 text-muted" href="http://127.0.0.1:8000/weather">| Weather Detector |</a>
+        <a class="p-2 text-muted" href="http://127.0.0.1:8000/General/?username={{user.username}"}> | Chat Bot | </a>
+        <a class="p-2 text-muted" href="https://github.com/Jainuine">| Git Hub |</a>
+        <a class="p-2 text-muted" href="https://www.linkedin.com/in/architraj/">| Linkedin |</a>
+      </nav>
+    </div>
+    </div>
+      {% endif %}
+
     
 {% if user.is_authenticated %}
 <h1 class="text-center text-muted text-decoration"> Welcome  {{user.username}} !</h1>
