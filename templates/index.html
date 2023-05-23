@@ -1,69 +1,83 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-* {
-  box-sizing: border-box;
-}
 
-body {
-  font-family: Arial;
-  padding: 20px;
-  background: #f1f1f1;
-}
-
-.header {
-  padding: 2px;
-  font-size: 40px;
-  text-align: center;
-  background: white;
-}
-
-.leftcolumn {   
-  float: left;
-  width: 100%;
-}
-
-.card {
-   background-color: white;
-   padding: 20px;
-   margin-top: 20px;
-}
-
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-@media screen and (max-width: 800px) {
-  .leftcolumn, .rightcolumn {   
-    width: 100%;
-    padding: 0;
-  }
-}
-</style>
 </head>
 <body>
 
-<div class="header">
-  <h2>Archit's Blog</h2>
-</div>
-
-<div class="row">
-  <div class="leftcolumn">
-    {% for post in posts reversed %}
-    <div class="card">
-      <a style="text-decoration: none; color: black;" href="/post/{{post.id}}">
-        <h2>{{post.title}}</h2>
-        <h5>{{post.created_at}}</h5>
-        <p>{{post.body|truncatewords:20}}</p>
-      </a>
+  <div class="container">
+    <header class="blog-header py-3">
+      <div class="row flex-nowrap justify-content-between align-items-center">
+        {% if user.is_authenticated %}
+        <div class="col-4 pt-1">
+          <a class="text-muted" >{% now "jS F Y H:i" %}</a>
+        </div>
+        {% else %}
+        <div class="col-4 pt-1">
+          <a class="text-muted" href="http://127.0.0.1:8000/register">Register</a>
+        </div>
+        {% endif %}
+        <div class="col-4 text-center">
+          <a class="blog-header-logo text-dark" ><h1 class="display-4">Chole Bhature and Lassi</h1></a>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="col-4 d-flex justify-content-end align-items-center">
+        <a class="btn btn-sm btn-outline-secondary" href="http://127.0.0.1:8000/login">Sign Out</a>
+      </div>
+        {% else %}
+        <div class="col-4 d-flex justify-content-end align-items-center">
+        <a class="btn btn-sm btn-outline-secondary" href="http://127.0.0.1:8000/login">Sign In</a>
+        </div>
+      </div>
+        {% endif %}
+        {% if user.is_authenticated %}
+    </header>
+    <div class="container">
+    <div class="nav-scroller py-1 mb-2">
+      <nav class="nav d-flex justify-content-between">
+        <a class="p-2 text-muted" href="http://127.0.0.1:8000/weather">| Weather Detector |</a>
+        <a class="p-2 text-muted" href="https://github.com/Jainuine">| Git Hub |</a>
+        <a class="p-2 text-muted" href="https://www.linkedin.com/in/architraj/">| Linkedin |</a>
+      </nav>
     </div>
-    {% endfor %}
-  </div>
-</div>
+    </div>
+      {% else %}
+    </header>
+    <div class="container">
+    <div class="nav-scroller py-1 mb-2">
+      <nav class="nav d-flex justify-content-between">
+        <a class="p-2 text-muted" href="http://127.0.0.1:8000/weather">| Weather Detector |</a>
+        <a class="p-2 text-muted" href="https://github.com/Jainuine">| Git Hub |</a>
+        <a class="p-2 text-muted" href="https://www.linkedin.com/in/architraj/">| Linkedin |</a>
+      </nav>
+    </div>
+    </div>
+      {% endif %}
+
+    
+
+
+{% csrf_token %}
+{% for post in posts reversed %}
+<div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+        <div class="col-md-6 px-0">
+          <h1 class="display-4 font-italic">{{post.title}}</h1>
+          <h5>{{post.created_at}}</h5>
+          <p class="lead my-3">{{post.body|truncatewords:25}}</p>
+          <p class="lead mb-0"><a href="/post/{{post.id}}" class="text-white font-weight-bold">Continue reading...</a></p>
+        </div>
+      </div>
+{% endfor %}
 
 </body>
 </html>

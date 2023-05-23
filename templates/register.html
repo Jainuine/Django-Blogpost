@@ -1,0 +1,50 @@
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial;
+  padding: 20px;
+  background: #f1f1f1;
+  text-align: center;
+}
+
+.header {
+  padding: 2px;
+  font-size: 20px;
+  text-align: center;
+}
+
+h5{
+    color: red;
+}
+
+
+</style>
+
+<div class="header">
+    <h1> Sign Up Below </h1>
+  </div>
+
+  {% for message in messages %}
+  <h5> {{message}} </h5>
+  {% endfor %}
+
+
+<form method ="post" action="register">
+    {% csrf_token %}
+    <p> Username: </p>
+    <input type  = "text" name ="Username" />  
+    <p> Email: </p>
+    <input type  = "email" name ="email"> 
+    <p> Location: </p>
+    <input type  = "text" name ="location" /> 
+    <p> Password: </p>
+    <input type  = "password" name ="Password" /> 
+    <p> Re-Enter Password: </p>
+    <input type  = "password" name ="Re Password" /> <br> <br>
+    <input type="submit" />
+
+</form>
