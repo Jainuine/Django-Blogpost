@@ -28,21 +28,17 @@
         </div>
         {% endif %}
         <div class="col-4 text-center">
-          <a class="blog-header-logo text-dark" ><h1 class="display-4"> Archit's Blog</h1></a>
+          <a class="blog-header-logo text-dark" ><h1 class="display-4">Chole Bhature and Lassi</h1></a>
         </div>
         {% if user.is_authenticated %}
         <div class="col-4 d-flex justify-content-end align-items-center">
         <a class="btn btn-sm btn-outline-secondary" href="http://127.0.0.1:8000/login">Sign Out</a>
       </div>
-      </div>
-    </div>
-  </div>
         {% else %}
-        <a class="btn btn-sm btn-outline-secondary" href="http://127.0.0.1:8000/login">Sign Out</a>
+        <div class="col-4 d-flex justify-content-end align-items-center">
+        <a class="btn btn-sm btn-outline-secondary" href="http://127.0.0.1:8000/login">Sign In</a>
         </div>
-        </div>
-        </div>
-        </div>
+      </div>
         {% endif %}
         {% if user.is_authenticated %}
     </header>
@@ -50,7 +46,6 @@
     <div class="nav-scroller py-1 mb-2">
       <nav class="nav d-flex justify-content-between">
         <a class="p-2 text-muted" href="http://127.0.0.1:8000/weather">| Weather Detector |</a>
-        <a class="p-2 text-muted" href="http://127.0.0.1:8000/General/?username={{user.username}}"> | Chat Bot | </a>
         <a class="p-2 text-muted" href="https://github.com/Jainuine">| Git Hub |</a>
         <a class="p-2 text-muted" href="https://www.linkedin.com/in/architraj/">| Linkedin |</a>
       </nav>
@@ -62,7 +57,6 @@
     <div class="nav-scroller py-1 mb-2">
       <nav class="nav d-flex justify-content-between">
         <a class="p-2 text-muted" href="http://127.0.0.1:8000/weather">| Weather Detector |</a>
-        <a class="p-2 text-muted" href="http://127.0.0.1:8000/General/?username={{user.username}"}> | Chat Bot | </a>
         <a class="p-2 text-muted" href="https://github.com/Jainuine">| Git Hub |</a>
         <a class="p-2 text-muted" href="https://www.linkedin.com/in/architraj/">| Linkedin |</a>
       </nav>
@@ -71,29 +65,19 @@
       {% endif %}
 
     
-{% if user.is_authenticated %}
-<h1 class="text-center text-muted text-decoration"> Welcome  {{user.username}} !</h1>
-{% else %}
-<h1> Welcome ,  Please Sign Up or Sign In </h1>
-{% endif %}
 
 
-
-
-
-
-    {% csrf_token %}
-    {% for post in posts reversed %}
-    <div class="card">
-      <div class ="card-body">
-      <a style="text-decoration: none; color: black;" href="/post/{{post.id}}">
-        <h2>{{post.title}}</h2>
-        <h5>{{post.created_at}}</h5>
-        <p>{{post.body|truncatewords:20}}</p>
-      </a>
-    </div>
-    {% endfor %}
-
+{% csrf_token %}
+{% for post in posts reversed %}
+<div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+        <div class="col-md-6 px-0">
+          <h1 class="display-4 font-italic">{{post.title}}</h1>
+          <h5>{{post.created_at}}</h5>
+          <p class="lead my-3">{{post.body|truncatewords:25}}</p>
+          <p class="lead mb-0"><a href="/post/{{post.id}}" class="text-white font-weight-bold">Continue reading...</a></p>
+        </div>
+      </div>
+{% endfor %}
 
 </body>
 </html>
